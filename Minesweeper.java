@@ -4,6 +4,7 @@ public class Minesweeper {
 
   public static void main(String[] args) {
 
+    // used for taking the player's inputs
     Scanner input = new Scanner(System.in);
     int rows = 16;
     int cols = 30;
@@ -35,6 +36,7 @@ public class Minesweeper {
 
           System.out.println(board + "\n\n\n");
 
+          // checking if the row/collumn they enter is within the board limits
           if (notRow) {
             System.out.println(" That row is not on the board");
             bombMark = input.nextLine();
@@ -46,9 +48,11 @@ public class Minesweeper {
             notCol = false;
           }
 
+          // prompts the option to mark a bomb after every time they choose to reveal a cell
           System.out.print(" Would you like to mark a bomb? (type 'y' or 'n'): ");
           bombMark = input.nextLine();
 
+          // options for marking a bomb, and once marked they are prompted again if they would like to mark another bomb
           if (bombMark.toLowerCase().equals("y")) {
 
             System.out.print(" Select the row the bomb is in (1-16): ");
@@ -84,6 +88,7 @@ public class Minesweeper {
         System.out.print("\n\n\n");
       }
 
+      // prompt for cell coordinates the player wants to reveal
       System.out.print(" Select a row (1-16): ");
       while (!input.hasNextInt()) {
         System.out.print(" That's not a valid row number\nSelect a row (1-16):");
@@ -91,6 +96,7 @@ public class Minesweeper {
       }
       tempRow = input.nextInt();
 
+      // flips the variable that indicates the row is not on the board
       if (tempRow > board.getRows() || tempRow < 1) {
         notRow = true;
         continue;
@@ -104,11 +110,13 @@ public class Minesweeper {
       tempCol = input.nextInt();
       bombMark = input.nextLine();
 
+      // flips the variable that indicates the collumn is not on the board
       if (tempCol > board.getCols() || tempCol < 1) {
         notCol = true;
         continue;
       }
 
+      // ends the game if the selected cell is a bomb, and reveals the solution to the board
       if (board.getBoard()[tempRow-1][tempCol-1].isMine()) {
         play = false;
 
