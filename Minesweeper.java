@@ -15,9 +15,11 @@ public class Minesweeper {
     int bombCol;
     boolean pastInitialBoard = false;
     boolean play = true;
+    // used for when the player inputs a coordinate that is not within the dimensions, while also doubling as the trigger for whether or not they have made the first move or not
     boolean notRow = false;
     boolean notCol = false;
 
+    // generates the game board
     Board board = new Board(rows,cols,difficulty);
     boolean[][] safeCells = new boolean[rows][cols];
 
