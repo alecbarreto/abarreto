@@ -26,7 +26,7 @@ public class Board {
       }
     }
 
-    // XXX may god have mercy on your soul
+    // XXX may god have mercy on you
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         if (!(board[i][j].isMine())) {
