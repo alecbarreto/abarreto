@@ -2,12 +2,15 @@ import java.util.*;
 
 public class Minesweeper {
 
+  // This was put together in one fairly long session (including the cell and board objects) and my biggest goal for when I come back to it would be to separate a lot of the different functions of the game into their own methods, rather than being this long chain of spaghetti "if" statements
+
   public static void main(String[] args) {
 
     // used for taking the player's inputs
     Scanner input = new Scanner(System.in);
     int rows = 16;
     int cols = 30;
+    // difficulty represents the percentage of cells that contain bombs
     double difficulty = 0.2;
     int tempRow;
     int tempCol;
@@ -26,6 +29,7 @@ public class Minesweeper {
 
     while (play) {
 
+      // so that a whole new board isn't created if the player enters a row or collumn that isn't on the board
       if (notRow || notCol) {
         pastInitialBoard = false;
       }

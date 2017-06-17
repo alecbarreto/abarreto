@@ -26,7 +26,7 @@ public class Board {
       }
     }
 
-    // XXX may god have mercy on you
+    // XXX may god have mercy on you. I didn't want to do this when I wrote it, but I initially thought it would just be a slighly inefficient way of writing it, which then began to turn into this monstrosity which at that point I figured I was in too deep to refactor. I plan on fixing it at some point in the future, but atm it is completely functional and scalable (to a reasonable extent)
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         if (!(board[i][j].isMine())) {
@@ -183,7 +183,6 @@ public class Board {
   }
 
   public String toString() {
-    // TODO add row and column numbers
     String s = "\n";
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
