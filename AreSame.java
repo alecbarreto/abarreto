@@ -12,9 +12,7 @@ public class AreSame {
     }
 		else {
 	    for (int i = 0; i < a.length; i++) {
-				if (ans == true) {
-					break;
-				}
+				if (ans) { break; }
 				for (int j = 0; j < b.length; j++) {
 					if (Math.pow(a[i],2) == b[j]) {
 						if (i == a.length-1) {
