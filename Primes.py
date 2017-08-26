@@ -1,7 +1,7 @@
 import math
 
 def is_prime(num):
-    if num == 1:
+    if num < 2:
         return False
     for i in range(2,int(math.sqrt(num))+1):
         if num % i == 0:
@@ -28,4 +28,3 @@ def fact(num):
     if num != 1:
         return num * fact(num-1)
     return 1
-print fact(8)+10
