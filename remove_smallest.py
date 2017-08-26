@@ -11,3 +11,4 @@ def remove_smallest(numbers):
                 numbers.remove(numbers[j])
                 break
         return numbers
+print remove_smallest([])

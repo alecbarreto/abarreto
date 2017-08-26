@@ -2,15 +2,11 @@ import java.util.*;
 
 public class Minesweeper {
 
-  // This was put together in one fairly long session (including the cell and board objects) and my biggest goal for when I come back to it would be to separate a lot of the different functions of the game into their own methods, rather than being this long chain of spaghetti "if" statements
-
   public static void main(String[] args) {
 
-    // used for taking the player's inputs
     Scanner input = new Scanner(System.in);
     int rows = 16;
     int cols = 30;
-    // difficulty represents the percentage of cells that contain bombs
     double difficulty = 0.2;
     int tempRow;
     int tempCol;
@@ -19,17 +15,25 @@ public class Minesweeper {
     int bombCol;
     boolean pastInitialBoard = false;
     boolean play = true;
-    // used for when the player inputs a coordinate that is not within the dimensions, while also doubling as the trigger for whether or not they have made the first move or not
     boolean notRow = false;
     boolean notCol = false;
 
-    // generates the game board
+    /*
+    Uncomment if want user to select board dimensions and percentage of mines
+
+    System.out.print("isMine the number of rows (standard is 9): ");
+    rows = input.nextInt();
+    System.out.print("isMine the number of columns (standard is 9): ");
+    cols = input.nextInt();
+    System.out.print("isMine the game difficulty between 0 and 1 (1 being impossible): ");
+    difficulty = input.nextDouble();
+    */
+
     Board board = new Board(rows,cols,difficulty);
     boolean[][] safeCells = new boolean[rows][cols];
 
     while (play) {
 
-      // so that a whole new board isn't created if the player enters a row or collumn that isn't on the board
       if (notRow || notCol) {
         pastInitialBoard = false;
       }
@@ -37,10 +41,8 @@ public class Minesweeper {
       if (pastInitialBoard) {
 
         while (true) {
-
           System.out.println(board + "\n\n\n");
 
-          // checking if the row/collumn they enter is within the board limits
           if (notRow) {
             System.out.println(" That row is not on the board");
             bombMark = input.nextLine();
@@ -52,11 +54,9 @@ public class Minesweeper {
             notCol = false;
           }
 
-          // prompts the option to mark a bomb after every time they choose to reveal a cell
           System.out.print(" Would you like to mark a bomb? (type 'y' or 'n'): ");
           bombMark = input.nextLine();
 
-          // options for marking a bomb, and once marked they are prompted again if they would like to mark another bomb
           if (bombMark.toLowerCase().equals("y")) {
 
             System.out.print(" Select the row the bomb is in (1-16): ");
@@ -75,6 +75,7 @@ public class Minesweeper {
 
             board.addMarkedCell(bombRow,bombCol);
             bombMark = input.nextLine();
+
           }
           else {
             break;
@@ -88,11 +89,10 @@ public class Minesweeper {
       notRow = false;
       notCol = false;
 
-      if (bombMark.toLowerCase().equals("yes") || !pastInitialBoard) {
+      if (bombMark.toLowerCase().equals("y") || !pastInitialBoard) {
         System.out.print("\n\n\n");
       }
 
-      // prompt for cell coordinates the player wants to reveal
       System.out.print(" Select a row (1-16): ");
       while (!input.hasNextInt()) {
         System.out.print(" That's not a valid row number\nSelect a row (1-16):");
@@ -100,7 +100,6 @@ public class Minesweeper {
       }
       tempRow = input.nextInt();
 
-      // flips the variable that indicates the row is not on the board
       if (tempRow > board.getRows() || tempRow < 1) {
         notRow = true;
         continue;
@@ -108,19 +107,17 @@ public class Minesweeper {
 
       System.out.print(" Select a column (1-30): ");
       while (!input.hasNextInt()) {
-        System.out.print(" That's not a valid column number\nSelect a row (1-16):");
+        System.out.print(" That's not a valid column number\nSelect a column (1-16):");
         input.next();
       }
       tempCol = input.nextInt();
       bombMark = input.nextLine();
 
-      // flips the variable that indicates the collumn is not on the board
       if (tempCol > board.getCols() || tempCol < 1) {
         notCol = true;
         continue;
       }
 
-      // ends the game if the selected cell is a bomb, and reveals the solution to the board
       if (board.getBoard()[tempRow-1][tempCol-1].isMine()) {
         play = false;
 
@@ -141,15 +138,15 @@ public class Minesweeper {
           }
         }
 
-        System.out.print("\n\n\n\n Whoops, looks like that one was a mine!\n That's game over for now, but feel free to type 'again' to play another round!\n If not, you can type 'quit' to quit the program (you can always come back by typing 'java Minesweeper'): ");
-        if (input.nextLine().toLowerCase().equals("again")) {
+        System.out.print("\n\n\n\n Whoops, looks like that was a mine!\n That's game over for now, but feel free to type 'again' to play another round!\n If not, you can type 'quit' to quit the program (you can always come back by typing 'java Minesweeper'): ");
+        if (input.nextLine().toLowerCase().equals("quit")) {
+          System.out.println("\n Thanks for playing!\n");
+          break;
+        }
+        else {
           play = true;
           board = new Board(16,30,0.2);
           pastInitialBoard = false;
-        }
-        else {
-          System.out.println("\n Thanks for playing!");
-          break;
         }
       }
       else {
